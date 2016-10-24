@@ -1,0 +1,623 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Banco1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AfiliacionMB">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="int" Nullable="false" />
+          <Property Name="CodigoCuenta" Type="bigint" />
+          <Property Name="TelefonAfi" Type="int" Nullable="false" />
+          <Property Name="MontoTran" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="nickname" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="CodigCuenta" />
+          </Key>
+          <Property Name="CodigCuenta" Type="bigint" Nullable="false" />
+          <Property Name="TipoCuenta" Type="int" />
+          <Property Name="Cedula" Type="int" />
+          <Property Name="Monto" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="LgUsuario">
+          <Key>
+            <PropertyRef Name="Usuario" />
+          </Key>
+          <Property Name="Usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contraseña" Type="nvarchar" MaxLength="20" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="10" />
+          <Property Name="Cedula" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TiposCuenta">
+          <Key>
+            <PropertyRef Name="CodCuenta" />
+          </Key>
+          <Property Name="CodCuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Banco1.dbo.Tranferencias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tranferencias">
+          <Key>
+            <PropertyRef Name="CodTranf" />
+          </Key>
+          <Property Name="CodTranf" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodCuenta" Type="bigint" />
+          <Property Name="Tipocuenta" Type="nvarchar" MaxLength="20" />
+          <Property Name="MontoR" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="TranferenciasSMS">
+          <Key>
+            <PropertyRef Name="codtranferencia" />
+          </Key>
+          <Property Name="codtranferencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoCuenta" Type="bigint" />
+          <Property Name="TelefonoAF" Type="int" Nullable="false" />
+          <Property Name="MontoR" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TelefonoAR" Type="int" />
+          <Property Name="Fecha" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Banco1.dbo.TranferenciasWeb' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TranferenciasWeb">
+          <Key>
+            <PropertyRef Name="codtranferencia" />
+          </Key>
+          <Property Name="codtranferencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoCuenta" Type="bigint" />
+          <Property Name="TelefonoR" Type="int" />
+          <Property Name="MontoR" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Cedula" />
+          </Key>
+          <Property Name="Cedula" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefono" Type="int" />
+          <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Afiliacio__cedul__1367E606">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="AfiliacionMB" Type="Self.AfiliacionMB" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="AfiliacionMB">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Afiliacio__Codig__145C0A3F">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+          <End Role="AfiliacionMB" Type="Self.AfiliacionMB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="CodigCuenta" />
+            </Principal>
+            <Dependent Role="AfiliacionMB">
+              <PropertyRef Name="CodigoCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cuenta__Cedula__0EA330E9">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="Cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cuenta__TipoCuen__0DAF0CB0">
+          <End Role="TiposCuenta" Type="Self.TiposCuenta" Multiplicity="0..1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposCuenta">
+              <PropertyRef Name="CodCuenta" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="TipoCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LgUsuario__Cedul__0519C6AF">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="LgUsuario" Type="Self.LgUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="LgUsuario">
+              <PropertyRef Name="Cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tranferen__CodCu__5441852A">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+          <End Role="Tranferencias" Type="Self.Tranferencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="CodigCuenta" />
+            </Principal>
+            <Dependent Role="Tranferencias">
+              <PropertyRef Name="CodCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tranferen__Codig__164452B1">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+          <End Role="TranferenciasWeb" Type="Self.TranferenciasWeb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="CodigCuenta" />
+            </Principal>
+            <Dependent Role="TranferenciasWeb">
+              <PropertyRef Name="CodigoCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tranferen__Codig__2B3F6F97">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+          <End Role="TranferenciasSMS" Type="Self.TranferenciasSMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="CodigCuenta" />
+            </Principal>
+            <Dependent Role="TranferenciasSMS">
+              <PropertyRef Name="CodigoCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Banco1ModelStoreContainer">
+          <EntitySet Name="AfiliacionMB" EntityType="Self.AfiliacionMB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LgUsuario" EntityType="Self.LgUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposCuenta" EntityType="Self.TiposCuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TranferenciasSMS" EntityType="Self.TranferenciasSMS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tranferencias" EntityType="Self.Tranferencias" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tranferencias].[CodTranf] AS [CodTranf], 
+    [Tranferencias].[CodCuenta] AS [CodCuenta], 
+    [Tranferencias].[Tipocuenta] AS [Tipocuenta], 
+    [Tranferencias].[MontoR] AS [MontoR], 
+    [Tranferencias].[fecha] AS [fecha]
+    FROM [dbo].[Tranferencias] AS [Tranferencias]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TranferenciasWeb" EntityType="Self.TranferenciasWeb" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TranferenciasWeb].[codtranferencia] AS [codtranferencia], 
+    [TranferenciasWeb].[CodigoCuenta] AS [CodigoCuenta], 
+    [TranferenciasWeb].[TelefonoR] AS [TelefonoR], 
+    [TranferenciasWeb].[MontoR] AS [MontoR], 
+    [TranferenciasWeb].[Fecha] AS [Fecha]
+    FROM [dbo].[TranferenciasWeb] AS [TranferenciasWeb]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Afiliacio__cedul__1367E606" Association="Self.FK__Afiliacio__cedul__1367E606">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="AfiliacionMB" EntitySet="AfiliacionMB" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Afiliacio__Codig__145C0A3F" Association="Self.FK__Afiliacio__Codig__145C0A3F">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="AfiliacionMB" EntitySet="AfiliacionMB" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cuenta__Cedula__0EA330E9" Association="Self.FK__Cuenta__Cedula__0EA330E9">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cuenta__TipoCuen__0DAF0CB0" Association="Self.FK__Cuenta__TipoCuen__0DAF0CB0">
+            <End Role="TiposCuenta" EntitySet="TiposCuenta" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LgUsuario__Cedul__0519C6AF" Association="Self.FK__LgUsuario__Cedul__0519C6AF">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="LgUsuario" EntitySet="LgUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tranferen__CodCu__5441852A" Association="Self.FK__Tranferen__CodCu__5441852A">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="Tranferencias" EntitySet="Tranferencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tranferen__Codig__164452B1" Association="Self.FK__Tranferen__Codig__164452B1">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="TranferenciasWeb" EntitySet="TranferenciasWeb" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tranferen__Codig__2B3F6F97" Association="Self.FK__Tranferen__Codig__2B3F6F97">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="TranferenciasSMS" EntitySet="TranferenciasSMS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Banco1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AfiliacionMB">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="Int32" Nullable="false" />
+          <Property Name="CodigoCuenta" Type="Int64" />
+          <Property Name="TelefonAfi" Type="Int32" Nullable="false" />
+          <Property Name="MontoTran" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="nickname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Afiliacio__cedul__1367E606" FromRole="AfiliacionMB" ToRole="Usuarios" />
+          <NavigationProperty Name="Cuenta" Relationship="Self.FK__Afiliacio__Codig__145C0A3F" FromRole="AfiliacionMB" ToRole="Cuenta" />
+        </EntityType>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="CodigCuenta" />
+          </Key>
+          <Property Name="CodigCuenta" Type="Int64" Nullable="false" />
+          <Property Name="TipoCuenta" Type="Int32" />
+          <Property Name="Cedula" Type="Int32" />
+          <Property Name="Monto" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="AfiliacionMBs" Relationship="Self.FK__Afiliacio__Codig__145C0A3F" FromRole="Cuenta" ToRole="AfiliacionMB" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Cuenta__Cedula__0EA330E9" FromRole="Cuenta" ToRole="Usuarios" />
+          <NavigationProperty Name="TiposCuenta" Relationship="Self.FK__Cuenta__TipoCuen__0DAF0CB0" FromRole="Cuenta" ToRole="TiposCuenta" />
+          <NavigationProperty Name="Tranferencias" Relationship="Self.FK__Tranferen__CodCu__5441852A" FromRole="Cuenta" ToRole="Tranferencias" />
+          <NavigationProperty Name="TranferenciasWebs" Relationship="Self.FK__Tranferen__Codig__164452B1" FromRole="Cuenta" ToRole="TranferenciasWeb" />
+          <NavigationProperty Name="TranferenciasSMS" Relationship="Self.FK__Tranferen__Codig__2B3F6F97" FromRole="Cuenta" ToRole="TranferenciasSMS" />
+        </EntityType>
+        <EntityType Name="LgUsuario">
+          <Key>
+            <PropertyRef Name="Usuario" />
+          </Key>
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Cedula" Type="Int32" />
+          <NavigationProperty Name="Usuario1" Relationship="Self.FK__LgUsuario__Cedul__0519C6AF" FromRole="LgUsuario" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TiposCuenta">
+          <Key>
+            <PropertyRef Name="CodCuenta" />
+          </Key>
+          <Property Name="CodCuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cuentas" Relationship="Self.FK__Cuenta__TipoCuen__0DAF0CB0" FromRole="TiposCuenta" ToRole="Cuenta" />
+        </EntityType>
+        <EntityType Name="TranferenciasSM">
+          <Key>
+            <PropertyRef Name="codtranferencia" />
+          </Key>
+          <Property Name="codtranferencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoCuenta" Type="Int64" />
+          <Property Name="TelefonoAF" Type="Int32" Nullable="false" />
+          <Property Name="MontoR" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TelefonoAR" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Cuenta" Relationship="Self.FK__Tranferen__Codig__2B3F6F97" FromRole="TranferenciasSMS" ToRole="Cuenta" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Cedula" />
+          </Key>
+          <Property Name="Cedula" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="Int32" />
+          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AfiliacionMB" Relationship="Self.FK__Afiliacio__cedul__1367E606" FromRole="Usuarios" ToRole="AfiliacionMB" />
+          <NavigationProperty Name="Cuentas" Relationship="Self.FK__Cuenta__Cedula__0EA330E9" FromRole="Usuarios" ToRole="Cuenta" />
+          <NavigationProperty Name="LgUsuarios" Relationship="Self.FK__LgUsuario__Cedul__0519C6AF" FromRole="Usuarios" ToRole="LgUsuario" />
+        </EntityType>
+        <EntityType Name="Tranferencia">
+          <Key>
+            <PropertyRef Name="CodTranf" />
+          </Key>
+          <Property Name="CodTranf" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodCuenta" Type="Int64" />
+          <Property Name="Tipocuenta" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MontoR" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Cuenta" Relationship="Self.FK__Tranferen__CodCu__5441852A" FromRole="Tranferencias" ToRole="Cuenta" />
+        </EntityType>
+        <EntityType Name="TranferenciasWeb">
+          <Key>
+            <PropertyRef Name="codtranferencia" />
+          </Key>
+          <Property Name="codtranferencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoCuenta" Type="Int64" />
+          <Property Name="TelefonoR" Type="Int32" />
+          <Property Name="MontoR" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Cuenta" Relationship="Self.FK__Tranferen__Codig__164452B1" FromRole="TranferenciasWeb" ToRole="Cuenta" />
+        </EntityType>
+        <Association Name="FK__Afiliacio__cedul__1367E606">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="AfiliacionMB" Type="Self.AfiliacionMB" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="AfiliacionMB">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Afiliacio__Codig__145C0A3F">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+          <End Role="AfiliacionMB" Type="Self.AfiliacionMB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="CodigCuenta" />
+            </Principal>
+            <Dependent Role="AfiliacionMB">
+              <PropertyRef Name="CodigoCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cuenta__Cedula__0EA330E9">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="Cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cuenta__TipoCuen__0DAF0CB0">
+          <End Role="TiposCuenta" Type="Self.TiposCuenta" Multiplicity="0..1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposCuenta">
+              <PropertyRef Name="CodCuenta" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="TipoCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tranferen__CodCu__5441852A">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+          <End Role="Tranferencias" Type="Self.Tranferencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="CodigCuenta" />
+            </Principal>
+            <Dependent Role="Tranferencias">
+              <PropertyRef Name="CodCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tranferen__Codig__164452B1">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+          <End Role="TranferenciasWeb" Type="Self.TranferenciasWeb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="CodigCuenta" />
+            </Principal>
+            <Dependent Role="TranferenciasWeb">
+              <PropertyRef Name="CodigoCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tranferen__Codig__2B3F6F97">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+          <End Role="TranferenciasSMS" Type="Self.TranferenciasSM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="CodigCuenta" />
+            </Principal>
+            <Dependent Role="TranferenciasSMS">
+              <PropertyRef Name="CodigoCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LgUsuario__Cedul__0519C6AF">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="LgUsuario" Type="Self.LgUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Cedula" />
+            </Principal>
+            <Dependent Role="LgUsuario">
+              <PropertyRef Name="Cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Banco1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AfiliacionMBs" EntityType="Self.AfiliacionMB" />
+          <EntitySet Name="Cuentas" EntityType="Self.Cuenta" />
+          <EntitySet Name="LgUsuarios" EntityType="Self.LgUsuario" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TiposCuentas" EntityType="Self.TiposCuenta" />
+          <EntitySet Name="TranferenciasSMS" EntityType="Self.TranferenciasSM" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="Tranferencias" EntityType="Self.Tranferencia" />
+          <EntitySet Name="TranferenciasWebs" EntityType="Self.TranferenciasWeb" />
+          <AssociationSet Name="FK__Afiliacio__cedul__1367E606" Association="Self.FK__Afiliacio__cedul__1367E606">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="AfiliacionMB" EntitySet="AfiliacionMBs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Afiliacio__Codig__145C0A3F" Association="Self.FK__Afiliacio__Codig__145C0A3F">
+            <End Role="Cuenta" EntitySet="Cuentas" />
+            <End Role="AfiliacionMB" EntitySet="AfiliacionMBs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cuenta__Cedula__0EA330E9" Association="Self.FK__Cuenta__Cedula__0EA330E9">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Cuenta" EntitySet="Cuentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cuenta__TipoCuen__0DAF0CB0" Association="Self.FK__Cuenta__TipoCuen__0DAF0CB0">
+            <End Role="TiposCuenta" EntitySet="TiposCuentas" />
+            <End Role="Cuenta" EntitySet="Cuentas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tranferen__CodCu__5441852A" Association="Self.FK__Tranferen__CodCu__5441852A">
+            <End Role="Cuenta" EntitySet="Cuentas" />
+            <End Role="Tranferencias" EntitySet="Tranferencias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tranferen__Codig__164452B1" Association="Self.FK__Tranferen__Codig__164452B1">
+            <End Role="Cuenta" EntitySet="Cuentas" />
+            <End Role="TranferenciasWeb" EntitySet="TranferenciasWebs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tranferen__Codig__2B3F6F97" Association="Self.FK__Tranferen__Codig__2B3F6F97">
+            <End Role="Cuenta" EntitySet="Cuentas" />
+            <End Role="TranferenciasSMS" EntitySet="TranferenciasSMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LgUsuario__Cedul__0519C6AF" Association="Self.FK__LgUsuario__Cedul__0519C6AF">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="LgUsuario" EntitySet="LgUsuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Banco1ModelStoreContainer" CdmEntityContainer="Banco1Entities">
+          <EntitySetMapping Name="AfiliacionMBs">
+            <EntityTypeMapping TypeName="Banco1Model.AfiliacionMB">
+              <MappingFragment StoreEntitySet="AfiliacionMB">
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="CodigoCuenta" ColumnName="CodigoCuenta" />
+                <ScalarProperty Name="TelefonAfi" ColumnName="TelefonAfi" />
+                <ScalarProperty Name="MontoTran" ColumnName="MontoTran" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cuentas">
+            <EntityTypeMapping TypeName="Banco1Model.Cuenta">
+              <MappingFragment StoreEntitySet="Cuenta">
+                <ScalarProperty Name="CodigCuenta" ColumnName="CodigCuenta" />
+                <ScalarProperty Name="TipoCuenta" ColumnName="TipoCuenta" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LgUsuarios">
+            <EntityTypeMapping TypeName="Banco1Model.LgUsuario">
+              <MappingFragment StoreEntitySet="LgUsuario">
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Banco1Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposCuentas">
+            <EntityTypeMapping TypeName="Banco1Model.TiposCuenta">
+              <MappingFragment StoreEntitySet="TiposCuenta">
+                <ScalarProperty Name="CodCuenta" ColumnName="CodCuenta" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TranferenciasSMS">
+            <EntityTypeMapping TypeName="Banco1Model.TranferenciasSM">
+              <MappingFragment StoreEntitySet="TranferenciasSMS">
+                <ScalarProperty Name="codtranferencia" ColumnName="codtranferencia" />
+                <ScalarProperty Name="CodigoCuenta" ColumnName="CodigoCuenta" />
+                <ScalarProperty Name="TelefonoAF" ColumnName="TelefonoAF" />
+                <ScalarProperty Name="MontoR" ColumnName="MontoR" />
+                <ScalarProperty Name="TelefonoAR" ColumnName="TelefonoAR" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="Banco1Model.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tranferencias">
+            <EntityTypeMapping TypeName="Banco1Model.Tranferencia">
+              <MappingFragment StoreEntitySet="Tranferencias">
+                <ScalarProperty Name="CodTranf" ColumnName="CodTranf" />
+                <ScalarProperty Name="CodCuenta" ColumnName="CodCuenta" />
+                <ScalarProperty Name="Tipocuenta" ColumnName="Tipocuenta" />
+                <ScalarProperty Name="MontoR" ColumnName="MontoR" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TranferenciasWebs">
+            <EntityTypeMapping TypeName="Banco1Model.TranferenciasWeb">
+              <MappingFragment StoreEntitySet="TranferenciasWeb">
+                <ScalarProperty Name="codtranferencia" ColumnName="codtranferencia" />
+                <ScalarProperty Name="CodigoCuenta" ColumnName="CodigoCuenta" />
+                <ScalarProperty Name="TelefonoR" ColumnName="TelefonoR" />
+                <ScalarProperty Name="MontoR" ColumnName="MontoR" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

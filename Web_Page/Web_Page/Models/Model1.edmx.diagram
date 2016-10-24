@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9efc7782c806484883f33a60574782b0" Name="Diagram1">
+        <EntityTypeShape EntityType="Banco1Model.AfiliacionMB" Width="1.5" PointX="4.625" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Banco1Model.Cuenta" Width="1.5" PointX="7.625" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Banco1Model.LgUsuario" Width="1.5" PointX="2.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Banco1Model.sysdiagram" Width="1.5" PointX="0.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Banco1Model.TiposCuenta" Width="1.5" PointX="5.375" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Banco1Model.TranferenciasSM" Width="1.5" PointX="7.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Banco1Model.Usuario" Width="1.5" PointX="2.375" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Banco1Model.Tranferencia" Width="1.5" PointX="10" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Banco1Model.TranferenciasWeb" Width="1.5" PointX="10.25" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="Banco1Model.FK__Afiliacio__cedul__1367E606" ManuallyRouted="false" />
+        <AssociationConnector Association="Banco1Model.FK__Afiliacio__Codig__145C0A3F" ManuallyRouted="false" />
+        <AssociationConnector Association="Banco1Model.FK__Cuenta__Cedula__0EA330E9" ManuallyRouted="false" />
+        <AssociationConnector Association="Banco1Model.FK__Cuenta__TipoCuen__0DAF0CB0" ManuallyRouted="false" />
+        <AssociationConnector Association="Banco1Model.FK__Tranferen__CodCu__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="Banco1Model.FK__Tranferen__Codig__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="Banco1Model.FK__Tranferen__Codig__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="Banco1Model.FK__LgUsuario__Cedul__0519C6AF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
