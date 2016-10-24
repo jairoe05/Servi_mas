@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Web_Page.Models.TranferenciasSM>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonoAF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonoAR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cuenta.CodigCuenta)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonoAF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonoAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cuenta.CodigCuenta)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.codtranferencia }) |
+                @Html.ActionLink("Details", "Details", new { id=item.codtranferencia }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.codtranferencia })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

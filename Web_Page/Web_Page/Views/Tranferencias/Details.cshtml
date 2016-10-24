@@ -1,0 +1,58 @@
+﻿@model Web_Page.Models.Tranferencia
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Tranferencia</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Tipocuenta)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Tipocuenta)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.MontoR)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.MontoR)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.fecha)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.fecha)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Cuenta.CodigCuenta)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Cuenta.CodigCuenta)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CodTranf }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

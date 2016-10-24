@@ -1,0 +1,66 @@
+﻿@model Web_Page.Models.AfiliacionMB
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>AfiliacionMB</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TelefonAfi)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TelefonAfi)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.MontoTran)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.MontoTran)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.nickname)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.nickname)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Usuario.Nombre)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Usuario.Nombre)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Cuenta.CodigCuenta)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Cuenta.CodigCuenta)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.cedula }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

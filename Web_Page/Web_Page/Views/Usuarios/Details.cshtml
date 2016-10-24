@@ -1,0 +1,66 @@
+﻿@model Web_Page.Models.Usuario
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Usuario</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Apellido)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Telefono)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Provincia)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Provincia)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.AfiliacionMB.nickname)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.AfiliacionMB.nickname)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Cedula }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

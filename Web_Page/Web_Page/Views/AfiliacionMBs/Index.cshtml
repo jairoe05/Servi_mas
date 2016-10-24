@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Web_Page.Models.AfiliacionMB>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefonAfi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoTran)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nickname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cuenta.CodigCuenta)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelefonAfi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoTran)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nickname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cuenta.CodigCuenta)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.cedula }) |
+                @Html.ActionLink("Details", "Details", new { id=item.cedula }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.cedula })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

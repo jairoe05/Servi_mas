@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Banco1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AfiliacionMB">
+    <Key>
+      <PropertyRef Name="cedula" />
+    </Key>
+    <Property Name="cedula" Type="int" Nullable="false" />
+    <Property Name="CodigoCuenta" Type="bigint" />
+    <Property Name="TelefonAfi" Type="int" Nullable="false" />
+    <Property Name="MontoTran" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="nickname" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Cuenta">
+    <Key>
+      <PropertyRef Name="CodigCuenta" />
+    </Key>
+    <Property Name="CodigCuenta" Type="bigint" Nullable="false" />
+    <Property Name="TipoCuenta" Type="int" />
+    <Property Name="Cedula" Type="int" />
+    <Property Name="Monto" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="LgUsuario">
+    <Key>
+      <PropertyRef Name="Usuario" />
+    </Key>
+    <Property Name="Usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Contraseña" Type="nvarchar" MaxLength="20" />
+    <Property Name="Estado" Type="nvarchar" MaxLength="10" />
+    <Property Name="Cedula" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TiposCuenta">
+    <Key>
+      <PropertyRef Name="CodCuenta" />
+    </Key>
+    <Property Name="CodCuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Banco1.dbo.Tranferencias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Tranferencias">
+    <Key>
+      <PropertyRef Name="CodTranf" />
+    </Key>
+    <Property Name="CodTranf" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodCuenta" Type="bigint" />
+    <Property Name="Tipocuenta" Type="nvarchar" MaxLength="20" />
+    <Property Name="MontoR" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="fecha" Type="date" />
+  </EntityType>
+  <EntityType Name="TranferenciasSMS">
+    <Key>
+      <PropertyRef Name="codtranferencia" />
+    </Key>
+    <Property Name="codtranferencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoCuenta" Type="bigint" />
+    <Property Name="TelefonoAF" Type="int" Nullable="false" />
+    <Property Name="MontoR" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TelefonoAR" Type="int" />
+    <Property Name="Fecha" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Banco1.dbo.TranferenciasWeb' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TranferenciasWeb">
+    <Key>
+      <PropertyRef Name="codtranferencia" />
+    </Key>
+    <Property Name="codtranferencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoCuenta" Type="bigint" />
+    <Property Name="TelefonoR" Type="int" />
+    <Property Name="MontoR" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Fecha" Type="date" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Cedula" />
+    </Key>
+    <Property Name="Cedula" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+    <Property Name="Apellido" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefono" Type="int" />
+    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK__Afiliacio__cedul__1367E606">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="AfiliacionMB" Type="Self.AfiliacionMB" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Cedula" />
+      </Principal>
+      <Dependent Role="AfiliacionMB">
+        <PropertyRef Name="cedula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Afiliacio__Codig__145C0A3F">
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+    <End Role="AfiliacionMB" Type="Self.AfiliacionMB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuenta">
+        <PropertyRef Name="CodigCuenta" />
+      </Principal>
+      <Dependent Role="AfiliacionMB">
+        <PropertyRef Name="CodigoCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cuenta__Cedula__0EA330E9">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Cedula" />
+      </Principal>
+      <Dependent Role="Cuenta">
+        <PropertyRef Name="Cedula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cuenta__TipoCuen__0DAF0CB0">
+    <End Role="TiposCuenta" Type="Self.TiposCuenta" Multiplicity="0..1" />
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposCuenta">
+        <PropertyRef Name="CodCuenta" />
+      </Principal>
+      <Dependent Role="Cuenta">
+        <PropertyRef Name="TipoCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LgUsuario__Cedul__0519C6AF">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="LgUsuario" Type="Self.LgUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Cedula" />
+      </Principal>
+      <Dependent Role="LgUsuario">
+        <PropertyRef Name="Cedula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tranferen__CodCu__5441852A">
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+    <End Role="Tranferencias" Type="Self.Tranferencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuenta">
+        <PropertyRef Name="CodigCuenta" />
+      </Principal>
+      <Dependent Role="Tranferencias">
+        <PropertyRef Name="CodCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tranferen__Codig__164452B1">
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+    <End Role="TranferenciasWeb" Type="Self.TranferenciasWeb" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuenta">
+        <PropertyRef Name="CodigCuenta" />
+      </Principal>
+      <Dependent Role="TranferenciasWeb">
+        <PropertyRef Name="CodigoCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tranferen__Codig__2B3F6F97">
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+    <End Role="TranferenciasSMS" Type="Self.TranferenciasSMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuenta">
+        <PropertyRef Name="CodigCuenta" />
+      </Principal>
+      <Dependent Role="TranferenciasSMS">
+        <PropertyRef Name="CodigoCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Banco1ModelStoreContainer">
+    <EntitySet Name="AfiliacionMB" EntityType="Self.AfiliacionMB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LgUsuario" EntityType="Self.LgUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TiposCuenta" EntityType="Self.TiposCuenta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TranferenciasSMS" EntityType="Self.TranferenciasSMS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tranferencias" EntityType="Self.Tranferencias" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Tranferencias].[CodTranf] AS [CodTranf], 
+    [Tranferencias].[CodCuenta] AS [CodCuenta], 
+    [Tranferencias].[Tipocuenta] AS [Tipocuenta], 
+    [Tranferencias].[MontoR] AS [MontoR], 
+    [Tranferencias].[fecha] AS [fecha]
+    FROM [dbo].[Tranferencias] AS [Tranferencias]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TranferenciasWeb" EntityType="Self.TranferenciasWeb" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TranferenciasWeb].[codtranferencia] AS [codtranferencia], 
+    [TranferenciasWeb].[CodigoCuenta] AS [CodigoCuenta], 
+    [TranferenciasWeb].[TelefonoR] AS [TelefonoR], 
+    [TranferenciasWeb].[MontoR] AS [MontoR], 
+    [TranferenciasWeb].[Fecha] AS [Fecha]
+    FROM [dbo].[TranferenciasWeb] AS [TranferenciasWeb]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Afiliacio__cedul__1367E606" Association="Self.FK__Afiliacio__cedul__1367E606">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="AfiliacionMB" EntitySet="AfiliacionMB" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Afiliacio__Codig__145C0A3F" Association="Self.FK__Afiliacio__Codig__145C0A3F">
+      <End Role="Cuenta" EntitySet="Cuenta" />
+      <End Role="AfiliacionMB" EntitySet="AfiliacionMB" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cuenta__Cedula__0EA330E9" Association="Self.FK__Cuenta__Cedula__0EA330E9">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cuenta__TipoCuen__0DAF0CB0" Association="Self.FK__Cuenta__TipoCuen__0DAF0CB0">
+      <End Role="TiposCuenta" EntitySet="TiposCuenta" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LgUsuario__Cedul__0519C6AF" Association="Self.FK__LgUsuario__Cedul__0519C6AF">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="LgUsuario" EntitySet="LgUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tranferen__CodCu__5441852A" Association="Self.FK__Tranferen__CodCu__5441852A">
+      <End Role="Cuenta" EntitySet="Cuenta" />
+      <End Role="Tranferencias" EntitySet="Tranferencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tranferen__Codig__164452B1" Association="Self.FK__Tranferen__Codig__164452B1">
+      <End Role="Cuenta" EntitySet="Cuenta" />
+      <End Role="TranferenciasWeb" EntitySet="TranferenciasWeb" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tranferen__Codig__2B3F6F97" Association="Self.FK__Tranferen__Codig__2B3F6F97">
+      <End Role="Cuenta" EntitySet="Cuenta" />
+      <End Role="TranferenciasSMS" EntitySet="TranferenciasSMS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
